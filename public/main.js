@@ -10,19 +10,17 @@ renderer.setSize( window.innerWidth, window.innerHeight );
 document.body.appendChild( renderer.domElement );
 
 //Geometry
-const geometry = new THREE.BoxGeometry( 1, 1, 1 );
-const material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
-const cube = new THREE.Mesh( geometry, material );
-scene.add( cube );
 
+const colors = [ 0x00ff00, 0xff0000 ];
+const cubes = [];
 
-const geometry2 = new THREE.BoxGeometry( 1, 1, 1 );
-const material2 = new THREE.MeshBasicMaterial( { color: 0xff0000 } );
-const cube2 = new THREE.Mesh( geometry2, material2 );
-scene.add( cube2 );
-
-
-
+colors.forEach((color) => {
+  const geometry = new THREE.BoxGeometry( 1, 1, 1 );
+  const material = new THREE.MeshBasicMaterial( { color } );
+  const cube = new THREE.Mesh( geometry, material );
+  cubes.push( cube );
+  scene.add( cube );
+});
 
 //controls?
 const controls = new OrbitControls(camera, renderer.domElement);
@@ -36,23 +34,16 @@ controls.mouseButtons = {
 camera.position.z = 5;
 controls.update();
 
-
-
-
 //Renderer
 function animate() {
   //requestAnimationFrame( animate );
 
   renderer.render( scene, camera );
   //Animation
-  //cube.rotation.x += 0.01;
-  //cube.rotation.y += 0.01;
-  cube2.rotation.x -= 0.01;
-  cube2.rotation.y -= 0.01;
+  cubes[1].rotation.x -= 0.01;
+  cubes[1].rotation.y -= 0.01;
 
   controls.update(); // Update the camera controls
 
 }
 renderer.setAnimationLoop( animate );
-
-
